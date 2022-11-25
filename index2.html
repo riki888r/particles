@@ -9,6 +9,8 @@
     <title>Document</title>
   </head>
   <body>
+    <canvas id="scene"></canvas>
+
     <script>
       var canvas = document.getElementById('scene');
       var ctx = canvas.getContext('2d');
@@ -52,8 +54,19 @@
       }
 
       var render = function () {
-        re;
+        requestAnimationFrame(render);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0, j = particles.length; i < j; i++) {
+          var particle = particles[i];
+          ctx.fillStyle = particle.color;
+          ctx.fillRect(particle.x1 * 2, particle.y1 * 2, 2, 2);
+        }
       };
+
+      var png = new Image();
+      png.onload = drawScene;
+      png.src =
+        'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDcyIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDQ3MiA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8xMl8yKSI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxMTguNDcxSDM0Mi41NzdWMTkyLjk3Mkg4MC4zNTAzVjUwMEgwVjExOC40NzFaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNDcxLjQxNSAwSDBWNzQuMzA4OEg0NzEuNDE1VjBaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEwOC4wNTkgMjI1LjQyMkwyNjYuNzgxIDMwMi44MDNMNDcxLjQxNiAxMTkuNDMyVjUwMEgzOTEuMjY0VjI2Ny44NTdMMjY2LjM4NSAzODAuMzc2TDE4OC42MDcgMzQyLjM1OFY1MDBIMTA4LjA1OVYyMjUuNDIyWiIgZmlsbD0iI0ZDOTYxMSIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzEyXzIiPgo8cmVjdCB3aWR0aD0iNDcyIiBoZWlnaHQ9IjUwMCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K';
     </script>
   </body>
 </html>
