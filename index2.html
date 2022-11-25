@@ -1,0 +1,59 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var canvas = document.getElementById('scene');
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+
+      function drawScene() {
+        canvas.width = png.width * 2;
+        canvas.height = png.height * 2;
+
+        ctx.drawImage(png, 0, 0);
+        var data = ctx.getImageData(0, 0, png.width, png.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var y = 0, y2 = data.height; y < y2; y += 2) {
+          for (var x = 0, x2 = data.height; x < x2; x += 2) {
+            var particle = {
+              x0: x,
+              y0: y,
+              x1: png.width / 2,
+              y1: png.height / 2,
+              color:
+                'rgb(' +
+                data.data[y * 4 * data.width + x * 4] +
+                ',' +
+                data.data[y * 4 * data.width + x * 4 + 1] +
+                ',' +
+                data.data[y * 4 * data.width + x * 4 + 2] +
+                ')',
+              speed: Math.random() * 4 + 2,
+            };
+            Tweenmax.to(particle, particle.speed, {
+              x1: particle.x0,
+              y1: particle.y0,
+              delay: y / 130,
+              ease: Elastic.easeout,
+            });
+            particles.push(particle);
+          }
+        }
+        requestAnimationFrame(render);
+      }
+
+      var render = function () {
+        re;
+      };
+    </script>
+  </body>
+</html>
