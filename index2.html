@@ -16,7 +16,7 @@
 
     <script>
       var canvas = document.getElementById('scene');
-      var ctx = canvas.getContext('3d');
+      var ctx = canvas.getContext('2d');
       var particles = [];
 
       function drawScene() {
@@ -65,7 +65,23 @@
           ctx.fillRect(particle.x1 * 2, particle.y1 * 2, 2, 2);
         }
       };
+      function animate() {
+        const t = clock.getElapsedTime();
 
+        for (let i = 0; i < pos.count; i++) {
+          v.fromBufferAttribute(pos, i);
+          const wavex1 = 0.1 * Math.sin(v.x * 1 + t);
+          const wavex2 = 0.1 * Math.sin(v.x * 3 + t * 2);
+          const wavex3 = 0.1 * Math.sin(v.y + t);
+
+          pos.setZ(i, wavex1 + wavex2 + wavex3);
+        }
+        pos.needsUpdate = true;
+
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+      animate();
       var png = new Image();
       png.onload = drawScene;
       png.src =
