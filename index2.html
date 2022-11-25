@@ -9,14 +9,14 @@
     <title>Document</title>
   </head>
   <body>
-    <canvas id="scene"></canvas>
+    <canvas id="scene" style="background-color: #000"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
 
     <script>
       var canvas = document.getElementById('scene');
-      var ctx = canvas.getContext('2d');
+      var ctx = canvas.getContext('3d');
       var particles = [];
 
       function drawScene() {
@@ -44,7 +44,7 @@
                 ')',
               speed: Math.random() * 4 + 2,
             };
-            Tweenmax.to(particle, particle.speed, {
+            TweenMax.to(particle, particle.speed, {
               x1: particle.x0,
               y1: particle.y0,
               delay: y / 130,
@@ -70,6 +70,15 @@
       png.onload = drawScene;
       png.src =
         'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDcyIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDQ3MiA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8xMl8yKSI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxMTguNDcxSDM0Mi41NzdWMTkyLjk3Mkg4MC4zNTAzVjUwMEgwVjExOC40NzFaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNDcxLjQxNSAwSDBWNzQuMzA4OEg0NzEuNDE1VjBaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEwOC4wNTkgMjI1LjQyMkwyNjYuNzgxIDMwMi44MDNMNDcxLjQxNiAxMTkuNDMyVjUwMEgzOTEuMjY0VjI2Ny44NTdMMjY2LjM4NSAzODAuMzc2TDE4OC42MDcgMzQyLjM1OFY1MDBIMTA4LjA1OVYyMjUuNDIyWiIgZmlsbD0iI0ZDOTYxMSIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzEyXzIiPgo8cmVjdCB3aWR0aD0iNDcyIiBoZWlnaHQ9IjUwMCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K';
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        window.innerWidth / window.innerHeight,
+        0.5,
+        1000,
+      );
+      const geometry = new THREE.PlaneGeometry(5, 5, 50, 50);
     </script>
   </body>
 </html>
